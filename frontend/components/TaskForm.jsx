@@ -13,22 +13,22 @@ function TaskForm() {
     if (!title || !description || !setDate) return;
 
     try {
-        await axios.post("http://localhost:3008/tasks/new", {
-          title: title,
-          description: description,
-          date: date + '.700Z',
-          duration: parseInt(duration),
-          category: category
-        });
-        console.log("Form sent successfully!");
-        setTitle("");
-        setDescription("");
-        setDate("");
-        setDuration("");
-        setCategory("");
-      } catch (error) {
-        console.error("Error sending form:", error);
-      }
+      await axios.post("http://localhost:3008/tasks/new", {
+        title: title,
+        description: description,
+        date: date + ".700Z",
+        duration: parseInt(duration),
+        category: category,
+      });
+      console.log("Form sent successfully!");
+      setTitle("");
+      setDescription("");
+      setDate("");
+      setDuration("");
+      setCategory("");
+    } catch (error) {
+      console.error("Error sending form:", error);
+    }
   };
 
   return (
@@ -60,11 +60,8 @@ function TaskForm() {
           value={duration}
           onChange={(e) => setDuration(e.target.value)}
         />
-        <select
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-        >
-          <option disabled selected>Category</option>
+        <select value={category} onChange={(e) => setCategory(e.target.value)}>
+          <option disabled>Category</option>
           <option value="work">Work</option>
           <option value="study">Study</option>
           <option value="personal">Personal</option>
