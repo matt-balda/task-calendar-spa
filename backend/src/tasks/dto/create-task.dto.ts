@@ -13,4 +13,7 @@ export class CreateTaskDto {
 
     @ApiProperty()
     duration: number
+
+    @ApiProperty()
+    category: string
 }

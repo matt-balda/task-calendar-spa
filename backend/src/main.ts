@@ -4,11 +4,12 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.enableCors();
   const config = new DocumentBuilder()
-    .setTitle('Tasks example')
-    .setDescription('The tasks API description')
+    .setTitle('Task calendar SPA of the day')
+    .setDescription('The present api intended for task crud')
     .setVersion('0.1')
-    .addTag('tasks')
+    //.addTag('tasks')
     .build();
 
   const document = SwaggerModule.createDocument(app, config)
