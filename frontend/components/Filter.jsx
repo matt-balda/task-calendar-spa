@@ -1,3 +1,4 @@
+// imports libraries
 import React, { useState } from 'react';
 import axios from 'axios';
 
@@ -10,17 +11,14 @@ const Filter = ({ filter, setFilter, setSort, setTasks }) => {
   const handleFilter = async (e) => {
     e.preventDefault();
 
-    const params = {
-        period: typeDate,
-        date: date
-    }
+    const params = { period: typeDate, date: date }
 
     try {
         const response = await axios.get("http://localhost:3008/tasks/view/day-week-month",{params});
         setAmount(response.data.length)
         setTasks(response.data);
     } catch (error) {
-      console.error("Error sending form:", error);
+      console.error("Error sending filter:", error);
     }
   };
 

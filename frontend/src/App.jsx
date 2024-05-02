@@ -1,28 +1,34 @@
+// imports libraries
 import { useEffect, useState } from "react";
 import axios from "axios";
+
+// imports styles
+import "./App.css";
+
+// imports components
 import Task from "../components/Task.jsx";
 import TaskForm from "../components/TaskForm.jsx";
-import "./App.css";
 import Search from "../components/Search.jsx";
 import Filter from "../components/Filter.jsx";
 
 function App() {
   const [tasks, setTasks] = useState([]);
   const [search, setSearch] = useState("");
-  const [filter, setFilter] = useState("");
+  const [filter, setFilter] = useState("all");
   const [sort, setSort] = useState("Asc");
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get("http://localhost:3008/tasks/list");
-        setTasks(response.data);
-      } catch (error) {
-        console.error("Erro ao buscar dados:", error);
-      }
-    };
-    fetchData();
+    fetchAllData();
   }, [tasks], [filter==="all"]);
+
+  const fetchAllData = async () => {
+    try {
+      const response = await axios.get("http://localhost:3008/tasks/list");
+      setTasks(response.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
   const completeTask = async (id) => {
     try {

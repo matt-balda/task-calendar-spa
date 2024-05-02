@@ -1,3 +1,4 @@
+// imports libraries
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import moment from "moment";
@@ -20,7 +21,7 @@ const Task = ({ task,completeTask }) => {
     await axios
       .delete(`http://localhost:3008/tasks/delete/${task.id}`)
       .catch((error) => {
-        console.error("Erro ao excluir a tarefa:", error);
+        console.error("Error deleting task:", error);
       });
   };
 
@@ -37,7 +38,7 @@ const Task = ({ task,completeTask }) => {
       });
       setShowModal(false);
     } catch (error) {
-      console.error("Erro ao atualizar a tarefa:", error);
+      console.error("Error updating task:", error);
     }
   };
 
@@ -54,7 +55,7 @@ const Task = ({ task,completeTask }) => {
       setCategory(response.data.category);
       setShowModal(true);
     } catch (error) {
-      console.error("Erro ao acessar os dados da tarefa:", error);
+      console.error("Error accessing task data:", error);
     }
   };
 
@@ -65,7 +66,6 @@ const Task = ({ task,completeTask }) => {
       <p><span class="label">Date and time:</span> {dateFormated} - {timeFormated}</p>
       <p><span class="label">Duration(h):</span> {task.duration}</p>
       <p className="category"><span class="label">Category:</span> ({task.category})</p>
-      {/* <input type="checkbox" checked={task.isCompleted} /> */}
       <div>
         <button className="done" onClick={() => completeTask(task.id)}>Done</button>
         <button className="update" onClick={handleId}>
