@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import moment from "moment";
 
-const Task = ({ task }) => {
+const Task = ({ task,completeTask }) => {
   // date formatting
   const dateString = task.date.slice(0, -5);
   const dateFormated = moment(dateString).format("DD/MM/YYYY");
@@ -16,8 +16,8 @@ const Task = ({ task }) => {
   const [duration, setDuration] = useState("");
   const [category, setCategory] = useState("");
 
-  const handleDelete = () => {
-    axios
+  const handleDelete = async () => {
+    await axios
       .delete(`http://localhost:3008/tasks/delete/${task.id}`)
       .catch((error) => {
         console.error("Erro ao excluir a tarefa:", error);
@@ -59,15 +59,15 @@ const Task = ({ task }) => {
   };
 
   return (
-    <div key={task.id} className="task">
-      <p>{task.title}</p>
-      <p>{task.description}</p>
-      <p>{dateFormated} - {timeFormated}</p>
-      <p>{task.duration}</p>
-      <p className="category">({task.category})</p>
+    <div key={task.id} className="task" style={{textDecoration: task.isCompleted ? "line-through" : ""}}>
+      <p><span class="label">Title:</span> {task.title}</p>
+      <p><span class="label">Description:</span> {task.description}</p>
+      <p><span class="label">Date and time:</span> {dateFormated} - {timeFormated}</p>
+      <p><span class="label">Duration(h):</span> {task.duration}</p>
+      <p className="category"><span class="label">Category:</span> ({task.category})</p>
       {/* <input type="checkbox" checked={task.isCompleted} /> */}
       <div>
-        <button className="done">Done</button>
+        <button className="done" onClick={() => completeTask(task.id)}>Done</button>
         <button className="update" onClick={handleId}>
           Update
         </button>
